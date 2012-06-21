@@ -90,7 +90,7 @@ module Smpp::Pdu
       @body = body
       @sequence_number = seq
       header = [length, command_id, command_status, seq].pack("NNNN")
-      @data = header + body
+      @data = header + body.force_encoding("ascii-8bit")
     end
 
     def logger
