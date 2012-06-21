@@ -89,8 +89,8 @@ module Smpp::Pdu
       @command_status = command_status
       @body = body
       @sequence_number = seq
-      if RUBY_VERSION < "1.9"
-        @data = fixed_int(length) + fixed_int(command_id) + fixed_int(command_status) + fixed_int(seq) + body
+      if RUBY_VERSION < "2.0"
+        @data = fixed_int(length) + fixed_int(command_id) + fixed_int(command_status) + fixed_int(seq)  + body.force_encoding("ascii-8bit")
       else
         @data =  (fixed_int(length) + fixed_int(command_id) + fixed_int(command_status) + fixed_int(seq)).force_encoding("UTF-8") + body.force_encoding("UTF-8")
       end
