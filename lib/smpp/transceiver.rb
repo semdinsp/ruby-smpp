@@ -99,13 +99,13 @@ class Smpp::Transceiver < Smpp::Base
   # Use data_coding to find out what message part size we can use
   # http://en.wikipedia.org/wiki/SMS#Message_size
   def self.get_message_part_size options
-    return 153 if options[:data_coding].nil?
-    return 153 if options[:data_coding] == 0
+    return 152 if options[:data_coding].nil?
+    return 152 if options[:data_coding] == 0
     return 134 if options[:data_coding] == 3
     return 134 if options[:data_coding] == 5
     return 134 if options[:data_coding] == 6
     return 134 if options[:data_coding] == 7
     return 67  if options[:data_coding] == 8
-    return 153
+    return 152
   end
 end
