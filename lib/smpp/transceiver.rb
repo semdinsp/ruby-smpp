@@ -49,7 +49,7 @@ class Smpp::Transceiver < Smpp::Base
       #         i+1         # This is part i+1
       #        ].pack('C'*6)
         udh = [ 6,         # UDH is 5 bytes.
-             0, 8,       # This is a concatenated message
+             8, 4,       # This is a concatenated message
              0, message_id.to_i%256, # Ensure single byte message_id
                parts.size, # How many parts this message consists of
                i+1         # This is part i+1
@@ -57,7 +57,7 @@ class Smpp::Transceiver < Smpp::Base
 
         options[:esm_class] = 64 # This message contains a UDH header.
         options[:udh] = udh
-        puts  "SCOTT SEND CONCAT #{udh} parts size: #{parts.size}  id int:  id: #{message_id.to_i}id: #{message_id.to_i%256}"
+        puts  "SCOTT SEND CONCAT udh size: #{udh.size} parts size: #{parts.size}  id int:  id: #{message_id.to_i}id: #{message_id.to_i%256}"
 
         pdu = Pdu::SubmitSm.new(source_addr, destination_addr, parts[i], options)
         write_pdu pdu
