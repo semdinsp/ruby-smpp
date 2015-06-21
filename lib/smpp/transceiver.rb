@@ -51,7 +51,7 @@ class Smpp::Transceiver < Smpp::Base
 
         options[:esm_class] = 64 # This message contains a UDH header.
         options[:udh] = udh
-        puts  "SCOTT SEND CONCAT #{udf} parts size: #{parts.size}  id int:  id: #{message_id.to_i}id: #{message_id.to_i%256}"
+        puts  "SCOTT SEND CONCAT #{udh} parts size: #{parts.size}  id int:  id: #{message_id.to_i}id: #{message_id.to_i%256}"
 
         pdu = Pdu::SubmitSm.new(source_addr, destination_addr, parts[i], options)
         write_pdu pdu
