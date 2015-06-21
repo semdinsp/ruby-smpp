@@ -42,12 +42,18 @@ class Smpp::Transceiver < Smpp::Base
       end
 
       0.upto(parts.size-1) do |i|
-        udh = [ 5,         # UDH is 5 bytes.
-               0, 3,       # This is a concatenated message
-               message_id.to_i%256, # Ensure single byte message_id
+      #  udh = [ 5,         # UDH is 5 bytes.
+      #         0, 3,       # This is a concatenated message
+      #         message_id.to_i%256, # Ensure single byte message_id
+       #        parts.size, # How many parts this message consists of
+      #         i+1         # This is part i+1
+      #        ].pack('C'*6)
+        udh = [ 6,         # UDH is 5 bytes.
+             0, 8,       # This is a concatenated message
+             0, message_id.to_i%256, # Ensure single byte message_id
                parts.size, # How many parts this message consists of
                i+1         # This is part i+1
-              ].pack('C'*6)
+                ].pack('C'*7)
 
         options[:esm_class] = 64 # This message contains a UDH header.
         options[:udh] = udh
